@@ -4708,21 +4708,21 @@
   return child;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-function mergeCollections(arr1, arr2, prop) {
-	_.forEach(arr2, function (item2) {
-		var item1 = _.find(arr1, function (lookAt1) {
-			return lookAt1[prop] === item2[prop];
-		});
+var mout = require(&#x27;mout&#x27;);
+var cordova = require(&#x27;cordova&#x27;);
+var chalk = require(&#x27;chalk&#x27;);
+var ionicUtils = require(&#x27;../utils&#x27;);
 
-		if (item1) {
-			_.<span class="apidocCodeKeywordSpan">extend</span>(item1, item2);
-		} else {
-			arr1.push(item2);
-		}
-	});
-}
+var appPath = path.join(process.cwd(), &#x27;app&#x27;);
 
-module.exports.mergePlugins = function (plugins) {
+module.exports = generators.Base.<span class="apidocCodeKeywordSpan">extend</span>({
+  constructor: function () {
+generators.Base.apply(this, arguments);
+console.log(ionicUtils.greeting);
+
+this.argument(&#x27;appName&#x27;, { type: String, required: false });
+this.option(&#x27;appName&#x27;, { type: String, required: false });
+this.option(&#x27;appId&#x27;, { type: String, required: false });
 ...</pre></li>
     </ul>
 
@@ -4937,7 +4937,23 @@ module.exports.mergePlugins = function (plugins) {
     <li>description and source-code<pre class="apidocCodePre">function append(html, tagName, content) {
   return this.domUpdate(html, tagName, content, &#x27;a&#x27;);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    childSelector += &#x27;[@android:name=\&#x27;&#x27; + data.attrib[&#x27;android:name&#x27;] + &#x27;\&#x27;]&#x27;;
+}
+
+childEl = parentEl.find(childSelector);
+// if child element doesnt exist, create new element
+if(!childEl) {
+    childEl = new et.Element(item.destination);
+    parentEl.<span class="apidocCodeKeywordSpan">append</span>(childEl);
+}
+
+// copy all config.xml data except for the generated _id property
+_.each(data, function (prop, propName) {
+    if(propName !== &#x27;_id&#x27;) {
+        childEl[propName] = prop;
+    }
+...</pre></li>
     </ul>
 
 
@@ -4998,7 +5014,24 @@ module.exports.mergePlugins = function (plugins) {
     <li>description and source-code<pre class="apidocCodePre">function appendScripts(html, optimizedPath, sourceFileList, attrs, searchPath) {
   return this.appendFiles(html, &#x27;js&#x27;, optimizedPath, sourceFileList, attrs, searchPath);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+      var relPath = path.relative(appPath, file.path);
+      if (relPath.indexOf(scriptPrefix) === 0) {
+        scripts.push(relPath);
+      }
+    }
+  });
+
+  //this.indexFile = this.<span class="apidocCodeKeywordSpan">appendScripts</span>(this.indexFile, &#x27;scripts/scripts.js&#x27
+;, scripts);
+},
+
+createIndexHtml: function createIndexHtml() {
+
+    // Regex: Vendor CSS
+    this.indexFile = this.indexFile.replace(/&#x3c;link href=&#x22;lib\/ionic\/css\/ionic.css&#x22; rel=&#x22;stylesheet&#x22;&#
+x3e;/g, &#x22;&#x3c;!-- build:css styles\/vendor.css --&#x3e;\n    &#x3c;!-- bower:css --&#x3e;\n    &#x3c;!-- endbower --&#x3e;\n    &#x3c;!-- endbuild --&#x3e;&#x22;);
+...</pre></li>
     </ul>
 
 
@@ -5106,7 +5139,23 @@ module.exports.mergePlugins = function (plugins) {
 
   return this;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+var appPath = path.join(process.cwd(), &#x27;app&#x27;);
+
+module.exports = generators.Base.extend({
+  constructor: function () {
+generators.Base.apply(this, arguments);
+console.log(ionicUtils.greeting);
+
+this.<span class="apidocCodeKeywordSpan">argument</span>(&#x27;appName&#x27;, { type: String, required: false });
+this.option(&#x27;appName&#x27;, { type: String, required: false });
+this.option(&#x27;appId&#x27;, { type: String, required: false });
+this.option(&#x27;compass&#x27;, { type: Boolean, required: false });
+this.option(&#x27;starter&#x27;, { type: String, required: false });
+this.option(&#x27;templates&#x27;, { type: Array, required: false });
+this.option(&#x27;plugins&#x27;, { type: Object, required: false });
+this.options.selected = {};
+...</pre></li>
     </ul>
 
 
@@ -5325,7 +5374,23 @@ module.exports.mergePlugins = function (plugins) {
 
   return this;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    this.directory(&#x27;common/root&#x27;, &#x27;.&#x27;, true);
+  },
+
+  packageFiles: function packageFiles() {
+    this.template(&#x27;common/_bower.json&#x27;, &#x27;bower.json&#x27;);
+    this.template(&#x27;common/_bowerrc&#x27;, &#x27;.bowerrc&#x27;);
+    this.template(&#x27;common/_package.json&#x27;, &#x27;package.json&#x27;);
+    this.<span class="apidocCodeKeywordSpan">copy</span>(&#x27;common/_Gruntfile.js&#x27;, &#x27;Gruntfile.js&#x27;);
+    this.template(&#x27;common/_gitignore&#x27;, &#x27;.gitignore&#x27;);
+  }
+},
+
+writing: {
+  cordovaInit: function cordovaInit() {
+    var done = this.async();
+...</pre></li>
     </ul>
 
 
@@ -5440,7 +5505,23 @@ module.exports.mergePlugins = function (plugins) {
     <li>description and source-code<pre class="apidocCodePre">function directory(source, destination, process) {
   return this._directory(source, destination, process);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+        if(fs.existsSync(file) ) {
+            fs.unlinkSync(file);
+        }
+   });
+  // Copies the contents of the generator example app
+  // directory into your users new application path
+  this.sourceRoot(path.join(__dirname, &#x27;../templates/&#x27;));
+  this.<span class="apidocCodeKeywordSpan">directory</span>(&#x27;common/root&#x27;, &#x27;.&#x27;, true);
+},
+
+packageFiles: function packageFiles() {
+  this.template(&#x27;common/_bower.json&#x27;, &#x27;bower.json&#x27;);
+  this.template(&#x27;common/_bowerrc&#x27;, &#x27;.bowerrc&#x27;);
+  this.template(&#x27;common/_package.json&#x27;, &#x27;package.json&#x27;);
+  this.copy(&#x27;common/_Gruntfile.js&#x27;, &#x27;Gruntfile.js&#x27;);
+...</pre></li>
     </ul>
 
 
@@ -5485,7 +5566,24 @@ module.exports.mergePlugins = function (plugins) {
     <li>description and source-code<pre class="apidocCodePre">engine = function (body, data, options) {
   return engine.detect(body) ? engine(body, data, options) : body;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  this.remote(this.starter.url, callback, true);
+} else {
+  this.remote(this.starter.user, this.starter.repo, &#x27;master&#x27;, callback, true);
+}
+    },
+
+    readIndex: function readIndex() {
+this.indexFile = this.<span class="apidocCodeKeywordSpan">engine</span>(this.read(path.join(this.starterCache, &#x27;index.html&#
+x27;)), this);
+    },
+
+    appJs: function appJs() {
+
+var scriptPrefix = &#x27;js&#x27; + path.sep;
+
+var scripts = [scriptPrefix + &#x27;configuration.js&#x27;];
+...</pre></li>
     </ul>
 
 
@@ -5791,7 +5889,23 @@ module.exports.mergePlugins = function (plugins) {
 
   async.parallel(commands, options.callback);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  },
+
+  cordovaHooks: function cordovaHooks() {
+    this.directory(&#x27;hooks&#x27;, &#x27;hooks&#x27;, true);
+  },
+
+  packages: function () {
+    this.<span class="apidocCodeKeywordSpan">installDependencies</span>({ skipInstall: this.options[&#x27;skip-install&#x27;] });
+  }
+},
+
+end: {
+  hookPerms: function hookPerms() {
+    var iconsAndSplash = &#x27;hooks/after_prepare/icons_and_splashscreens.js&#x27;;
+    fs.chmodSync(iconsAndSplash, &#x27;755&#x27;);
+...</pre></li>
     </ul>
 
 
@@ -5902,7 +6016,23 @@ module.exports.mergePlugins = function (plugins) {
 
   return this;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+module.exports = generators.Base.extend({
+constructor: function () {
+  generators.Base.apply(this, arguments);
+  console.log(ionicUtils.greeting);
+
+  this.argument(&#x27;appName&#x27;, { type: String, required: false });
+  this.<span class="apidocCodeKeywordSpan">option</span>(&#x27;appName&#x27;, { type: String, required: false });
+  this.option(&#x27;appId&#x27;, { type: String, required: false });
+  this.option(&#x27;compass&#x27;, { type: Boolean, required: false });
+  this.option(&#x27;starter&#x27;, { type: String, required: false });
+  this.option(&#x27;templates&#x27;, { type: Array, required: false });
+  this.option(&#x27;plugins&#x27;, { type: Object, required: false });
+  this.options.selected = {};
+},
+...</pre></li>
     </ul>
 
 
@@ -6028,7 +6158,22 @@ module.exports.mergePlugins = function (plugins) {
 
   return this;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    this.options.selected = {};
+  },
+
+  prompting: {
+    askForCompass: function askForCompass() {
+var done = this.async();
+
+this.<span class="apidocCodeKeywordSpan">prompt</span>([{
+  type: &#x27;confirm&#x27;,
+  name: &#x27;compass&#x27;,
+  message: &#x27;Would you like to use Sass with Compass (requires Ruby)?&#x27;,
+  default: (typeof(this.options.compass) !== &#x27;undefined&#x27;) ? this.options.compass : false
+}], function (props) {
+  this.compass = this.options.selected.compass = props.compass;
+...</pre></li>
     </ul>
 
 
@@ -6048,7 +6193,24 @@ module.exports.mergePlugins = function (plugins) {
   var contents = this.fs.read(filepath, { raw: true });
   return contents.toString(encoding || &#x27;utf8&#x27;);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  this.remote(this.starter.url, callback, true);
+} else {
+  this.remote(this.starter.user, this.starter.repo, &#x27;master&#x27;, callback, true);
+}
+    },
+
+    readIndex: function readIndex() {
+this.indexFile = this.engine(this.<span class="apidocCodeKeywordSpan">read</span>(path.join(this.starterCache, &#x27;index.html&#
+x27;)), this);
+    },
+
+    appJs: function appJs() {
+
+var scriptPrefix = &#x27;js&#x27; + path.sep;
+
+var scripts = [scriptPrefix + &#x27;configuration.js&#x27;];
+...</pre></li>
     </ul>
 
 
@@ -6063,7 +6225,24 @@ module.exports.mergePlugins = function (plugins) {
     <li>description and source-code<pre class="apidocCodePre">function readFileAsString(filePath) {
   return fs.readFileSync(path.resolve(filePath), &#x27;utf8&#x27;);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+commonVariables: function() {
+  this.appName = this.appName || this.options.appName || path.basename(process.cwd());
+  this.appName = mout.string.pascalCase(this.appName);
+  this.appId = this.options.appId || &#x27;com.example.&#x27; + this.appName;
+  this.appPath = &#x27;app&#x27;;
+  this.root = process.cwd();
+
+  this.pkg = JSON.parse(this.<span class="apidocCodeKeywordSpan">readFileAsString</span>(path.join(__dirname, &#x27;../package.json
+&#x27;)));
+},
+
+setupEnv: function setupEnv() {
+    // Removes thumbnail cache files
+    var invisibleFiles = [&#x27;Thumbs.db&#x27;, &#x27;.DS_Store&#x27;];
+    invisibleFiles.forEach(function(filename) {
+        var file = path.join(process.cwd(), filename)
+...</pre></li>
     </ul>
 
 
@@ -6146,7 +6325,23 @@ module.exports.mergePlugins = function (plugins) {
 
   return this;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  }.bind(this);
+
+  if (this.starter &#x26;&#x26; this.starter.path) {
+    this.log(chalk.bgYellow(chalk.black(&#x27;WARN&#x27;)) +
+      chalk.magenta(&#x27; Getting the template from a local path.  This should only be used for developing new templates.&#x27;));
+    this.remoteDir(this.starter.path, callback);
+  } else if (this.starter.url) {
+    this.<span class="apidocCodeKeywordSpan">remote</span>(this.starter.url, callback, true);
+  } else {
+    this.remote(this.starter.user, this.starter.repo, &#x27;master&#x27;, callback, true);
+  }
+},
+
+readIndex: function readIndex() {
+  this.indexFile = this.engine(this.read(path.join(this.starterCache, &#x27;index.html&#x27;)), this);
+...</pre></li>
     </ul>
 
 
@@ -6225,7 +6420,22 @@ module.exports.mergePlugins = function (plugins) {
 
   cb(null, remoteFs, files);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    this.starterCache = remote.cachePath;
+    done();
+  }.bind(this);
+
+  if (this.starter &#x26;&#x26; this.starter.path) {
+    this.log(chalk.bgYellow(chalk.black(&#x27;WARN&#x27;)) +
+      chalk.magenta(&#x27; Getting the template from a local path.  This should only be used for developing new templates.&#x27;));
+    this.<span class="apidocCodeKeywordSpan">remoteDir</span>(this.starter.path, callback);
+  } else if (this.starter.url) {
+    this.remote(this.starter.url, callback, true);
+  } else {
+    this.remote(this.starter.user, this.starter.repo, &#x27;master&#x27;, callback, true);
+  }
+},
+...</pre></li>
     </ul>
 
 
@@ -6394,7 +6604,22 @@ module.exports.mergePlugins = function (plugins) {
 
   return this;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+      compass: false,
+      plugins: [&#x27;com.ionic.keyboard&#x27;],
+      starter: &#x27;Tabs&#x27;
+    });
+
+    this.app.options[&#x27;skip-install&#x27;] = false;
+
+    this.app.<span class="apidocCodeKeywordSpan">run</span>({}, function () {
+      helpers.assertFile(expected);
+      done();
+    })
+
+  });
+});
+...</pre></li>
     </ul>
 
 
@@ -6485,7 +6710,23 @@ module.exports.mergePlugins = function (plugins) {
 
   return this._sourceRoot;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+        var file = path.join(process.cwd(), filename)
+        if(fs.existsSync(file) ) {
+            fs.unlinkSync(file);
+        }
+   });
+  // Copies the contents of the generator example app
+  // directory into your users new application path
+  this.<span class="apidocCodeKeywordSpan">sourceRoot</span>(path.join(__dirname, &#x27;../templates/&#x27;));
+  this.directory(&#x27;common/root&#x27;, &#x27;.&#x27;, true);
+},
+
+packageFiles: function packageFiles() {
+  this.template(&#x27;common/_bower.json&#x27;, &#x27;bower.json&#x27;);
+  this.template(&#x27;common/_bowerrc&#x27;, &#x27;.bowerrc&#x27;);
+  this.template(&#x27;common/_package.json&#x27;, &#x27;package.json&#x27;);
+...</pre></li>
     </ul>
 
 
@@ -6578,7 +6819,22 @@ module.exports.mergePlugins = function (plugins) {
   });
   return this;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    // Copies the contents of the generator example app
+    // directory into your users new application path
+    this.sourceRoot(path.join(__dirname, &#x27;../templates/&#x27;));
+    this.directory(&#x27;common/root&#x27;, &#x27;.&#x27;, true);
+  },
+
+  packageFiles: function packageFiles() {
+    this.<span class="apidocCodeKeywordSpan">template</span>(&#x27;common/_bower.json&#x27;, &#x27;bower.json&#x27;);
+    this.template(&#x27;common/_bowerrc&#x27;, &#x27;.bowerrc&#x27;);
+    this.template(&#x27;common/_package.json&#x27;, &#x27;package.json&#x27;);
+    this.copy(&#x27;common/_Gruntfile.js&#x27;, &#x27;Gruntfile.js&#x27;);
+    this.template(&#x27;common/_gitignore&#x27;, &#x27;.gitignore&#x27;);
+  }
+},
+...</pre></li>
     </ul>
 
 
@@ -6865,7 +7121,23 @@ grunt.registerTask(&#x27;stage&#x27;, &#x27;git add files before running the rel
     ? createWrapper(func, 17, slice(arguments, 2), null, thisArg)
     : createWrapper(func, 1, null, null, thisArg);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  name: &#x27;compass&#x27;,
+  message: &#x27;Would you like to use Sass with Compass (requires Ruby)?&#x27;,
+  default: (typeof(this.options.compass) !== &#x27;undefined&#x27;) ? this.options.compass : false
+}], function (props) {
+  this.compass = this.options.selected.compass = props.compass;
+
+  done();
+}.<span class="apidocCodeKeywordSpan">bind</span>(this));
+    },
+
+    askForPlugins: function askForPlugins() {
+var done = this.async();
+
+if (this.options.plugins) {
+  ionicUtils.mergePlugins(this.options.plugins);
+...</pre></li>
     </ul>
 
 
@@ -7204,7 +7476,22 @@ grunt.registerTask(&#x27;stage&#x27;, &#x27;git add files before running the rel
   }
   return result;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+.factory(&#x27;httpEnvInterceptor&#x27;, function (ENV) {
+
+  return {
+
+    &#x27;request&#x27;: function(config) {
+
+if (!_.<span class="apidocCodeKeywordSpan">contains</span>(config.url, &#x27;html&#x27;)) {
+
+  config.url = ENV.apiEndpoint + config.url;
+
+}
+
+return config;
+...</pre></li>
     </ul>
 
 
@@ -7282,7 +7569,24 @@ grunt.registerTask(&#x27;stage&#x27;, &#x27;git add files before running the rel
   var result = baseCreate(prototype);
   return properties ? assign(result, properties) : result;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    this.template(&#x27;common/_gitignore&#x27;, &#x27;.gitignore&#x27;);
+  }
+},
+
+writing: {
+  cordovaInit: function cordovaInit() {
+    var done = this.async();
+    cordova.<span class="apidocCodeKeywordSpan">create</span>(&#x27;.&#x27;, this.appId, this.appName, function (error) {
+      if (error) {
+        console.log(chalk.yellow(error.message + &#x27;: Skipping `cordova create`&#x27;));
+      } else {
+        console.log(chalk.yellow(&#x27;Created a new Cordova project with name &#x22;&#x27; + this.appName + &#x27;&#x22; and id
+ &#x22;&#x27; + this.appId + &#x27;&#x22;&#x27;));
+      }
+      done();
+    }.bind(this));
+...</pre></li>
     </ul>
 
 
@@ -7648,7 +7952,23 @@ grunt.registerTask(&#x27;stage&#x27;, &#x27;git add files before running the rel
   }
   return collection;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+    appJs: function appJs() {
+
+var scriptPrefix = &#x27;js&#x27; + path.sep;
+
+var scripts = [scriptPrefix + &#x27;configuration.js&#x27;];
+
+this.fs.store.<span class="apidocCodeKeywordSpan">each</span>(function (file, index) {
+  if (file.path.indexOf(&#x27;.js&#x27;) !== -1)
+  {
+    var relPath = path.relative(appPath, file.path);
+    if (relPath.indexOf(scriptPrefix) === 0) {
+      scripts.push(relPath);
+    }
+  }
+...</pre></li>
     </ul>
 
 
@@ -7837,21 +8157,21 @@ grunt.registerTask(&#x27;stage&#x27;, &#x27;git add files before running the rel
   return result
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-function mergeCollections(arr1, arr2, prop) {
-	_.forEach(arr2, function (item2) {
-		var item1 = _.find(arr1, function (lookAt1) {
-			return lookAt1[prop] === item2[prop];
-		});
+var mout = require(&#x27;mout&#x27;);
+var cordova = require(&#x27;cordova&#x27;);
+var chalk = require(&#x27;chalk&#x27;);
+var ionicUtils = require(&#x27;../utils&#x27;);
 
-		if (item1) {
-			_.<span class="apidocCodeKeywordSpan">extend</span>(item1, item2);
-		} else {
-			arr1.push(item2);
-		}
-	});
-}
+var appPath = path.join(process.cwd(), &#x27;app&#x27;);
 
-module.exports.mergePlugins = function (plugins) {
+module.exports = generators.Base.<span class="apidocCodeKeywordSpan">extend</span>({
+  constructor: function () {
+generators.Base.apply(this, arguments);
+console.log(ionicUtils.greeting);
+
+this.argument(&#x27;appName&#x27;, { type: String, required: false });
+this.option(&#x27;appName&#x27;, { type: String, required: false });
+this.option(&#x27;appId&#x27;, { type: String, required: false });
 ...</pre></li>
     </ul>
 
@@ -7887,7 +8207,23 @@ module.exports.mergePlugins = function (plugins) {
   }
   return result;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+});
+orchestrator.start(&#x27;copyFile&#x27;, function (err) {
+  callback(err);
+});
+}
+
+// Main
+var platforms = _.<span class="apidocCodeKeywordSpan">filter</span>(fs.readdirSync(&#x27;platforms&#x27;), function (file) {
+return fs.statSync(path.resolve(&#x27;platforms&#x27;, file)).isDirectory();
+});
+_.each(platforms, function (platform) {
+var base = path.resolve(&#x27;platforms&#x27;, platform, BASES[platform]);
+glob(base + &#x27;/**/*.png&#x27;, function (err, files) {
+  _.each(files, function (cordovaFile) {
+    var orchestrator = new Orchestrator();
+...</pre></li>
     </ul>
 
 
@@ -7924,21 +8260,22 @@ module.exports.mergePlugins = function (plugins) {
   }
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-  greeting: require(&#x27;./greeting&#x27;),
-  plugins: require(&#x27;./plugins&#x27;),
-  starters: require(&#x27;./starters&#x27;)
-};
+    this.prompt([{
+      type: &#x27;list&#x27;,
+      name: &#x27;starter&#x27;,
+      message: &#x27;Which starter template would you like to use?&#x27;,
+      choices: _.pluck(ionicUtils.starters.templates, &#x27;name&#x27;),
+      default: defaultIndex
+    }], function (props) {
+      this.starter = this.options.selected.starter = _.<span class="apidocCodeKeywordSpan">find</span>(ionicUtils.starters.templates
+, { name: props.starter });
+      done();
+    }.bind(this));
+  }
 
-function mergeCollections(arr1, arr2, prop) {
-	_.forEach(arr2, function (item2) {
-		var item1 = _.<span class="apidocCodeKeywordSpan">find</span>(arr1, function (lookAt1) {
-			return lookAt1[prop] === item2[prop];
-		});
+},
 
-		if (item1) {
-			_.extend(item1, item2);
-		} else {
-			arr1.push(item2);
+configuring: {
 ...</pre></li>
     </ul>
 
@@ -7963,7 +8300,24 @@ function mergeCollections(arr1, arr2, prop) {
   }
   return -1;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+      if (this.options.templates) {
+ionicUtils.mergeStarterTemplates(this.options.templates);
+      }
+
+      var defaultIndex = 0;
+      if (this.options.starter) {
+defaultIndex = _.<span class="apidocCodeKeywordSpan">findIndex</span>(ionicUtils.starters.templates, { name: this.options.starter
+ });
+
+if (defaultIndex === -1) {
+  defaultIndex = 0;
+  this.log(chalk.bgYellow(chalk.black(&#x27;WARN&#x27;)) +
+    chalk.magenta(&#x27; Unable to locate the requested default template: &#x27;) +
+    this.options.starter);
+}
+...</pre></li>
     </ul>
 
 
@@ -8144,7 +8498,23 @@ function mergeCollections(arr1, arr2, prop) {
   }
   return baseFlatten(array, isShallow);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  // over to &#x3c;%%= yeoman.dist %&#x3e;/. Last step is running cordova prepare so we can refresh the ripple
+  // browser tab to see the changes. Technically ripple runs `cordova prepare` on browser
+  // refreshes, but at this time you would need to re-run the emulator to see changes.
+  grunt.registerTask(&#x27;ripple&#x27;, [&#x27;wiredep&#x27;, &#x27;newer:copy:app&#x27;, &#x27;ripple-emulator&#x27;]);
+  grunt.registerTask(&#x27;ripple-emulator&#x27;, function () {
+grunt.config.set(&#x27;watch&#x27;, {
+  all: {
+    files: _.<span class="apidocCodeKeywordSpan">flatten</span>(_.pluck(grunt.config.get(&#x27;watch&#x27;), &#x27;files&#x27;)),
+    tasks: [&#x27;newer:copy:app&#x27;, &#x27;prepare&#x27;]
+  }
+});
+
+var cmd = path.resolve(&#x27;./node_modules/ripple-emulator/bin&#x27;, &#x27;ripple&#x27;);
+var child = spawn(cmd, [&#x27;emulate&#x27;]);
+child.stdout.on(&#x27;data&#x27;, function (data) {
+...</pre></li>
     </ul>
 
 
@@ -8231,21 +8601,21 @@ function mergeCollections(arr1, arr2, prop) {
   return collection;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-module.exports = {
-  greeting: require(&#x27;./greeting&#x27;),
-  plugins: require(&#x27;./plugins&#x27;),
-  starters: require(&#x27;./starters&#x27;)
-};
 
-function mergeCollections(arr1, arr2, prop) {
-	_.<span class="apidocCodeKeywordSpan">forEach</span>(arr2, function (item2) {
-		var item1 = _.find(arr1, function (lookAt1) {
-			return lookAt1[prop] === item2[prop];
-		});
+  this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, &#x27;../package.json&#x27;)));
+},
 
-		if (item1) {
-			_.extend(item1, item2);
-		} else {
+setupEnv: function setupEnv() {
+    // Removes thumbnail cache files
+    var invisibleFiles = [&#x27;Thumbs.db&#x27;, &#x27;.DS_Store&#x27;];
+    invisibleFiles.<span class="apidocCodeKeywordSpan">forEach</span>(function(filename) {
+        var file = path.join(process.cwd(), filename)
+        if(fs.existsSync(file) ) {
+            fs.unlinkSync(file);
+        }
+   });
+  // Copies the contents of the generator example app
+  // directory into your users new application path
 ...</pre></li>
     </ul>
 
@@ -8400,7 +8770,23 @@ function mergeCollections(arr1, arr2, prop) {
   });
   return result.sort();
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+      }]
+    }
+  }
+
+});
+
+// Register tasks for all Cordova commands
+_.<span class="apidocCodeKeywordSpan">functions</span>(cordovaCli).forEach(function (name) {
+  grunt.registerTask(name, function () {
+    this.args.unshift(name.replace(&#x27;cordova:&#x27;, &#x27;&#x27;));
+    // Handle URL&#x27;s being split up by Grunt because of `:` characters
+    if (_.contains(this.args, &#x27;http&#x27;) || _.contains(this.args, &#x27;https&#x27;)) {
+      this.args = this.args.slice(0, -2).concat(_.last(this.args, 2).join(&#x27;:&#x27;));
+    }
+    var done = this.async();
+...</pre></li>
     </ul>
 
 
@@ -8569,7 +8955,24 @@ function mergeCollections(arr1, arr2, prop) {
   }
   return result;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+        /* Retrieves all configured xml for a specific platform/target/parent element nested inside a platforms config-file
+           element within the config.xml.  The config-file elements are then indexed by target|parent so if there are
+           any config-file elements per platform that have the same target and parent, the last config-file element is used.
+         */
+        getConfigFilesByTargetAndParent: function (platform) {
+var configFileData = this.getConfigXml().findall(&#x27;platform[@name=\&#x27;&#x27; + platform + &#x27;\&#x27;]/config-file&#x27
+;);
+
+return  _.<span class="apidocCodeKeywordSpan">indexBy</span>(configFileData, function(item) {
+    var parent = item.attrib.parent;
+    //if parent attribute is undefined /* or */, set parent to top level elementree selector
+    if(!parent || parent === &#x27;/*&#x27; || parent === &#x27;*/&#x27;) {
+        parent = &#x27;./&#x27;;
+    }
+    return item.attrib.target + &#x27;|&#x27; + parent;
+});
+...</pre></li>
     </ul>
 
 
@@ -8591,7 +8994,23 @@ function mergeCollections(arr1, arr2, prop) {
   }
   return baseIndexOf(array, value, fromIndex);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    appJs: function appJs() {
+
+var scriptPrefix = &#x27;js&#x27; + path.sep;
+
+var scripts = [scriptPrefix + &#x27;configuration.js&#x27;];
+
+this.fs.store.each(function (file, index) {
+  if (file.path.<span class="apidocCodeKeywordSpan">indexOf</span>(&#x27;.js&#x27;) !== -1)
+  {
+    var relPath = path.relative(appPath, file.path);
+    if (relPath.indexOf(scriptPrefix) === 0) {
+      scripts.push(relPath);
+    }
+  }
+});
+...</pre></li>
     </ul>
 
 
@@ -9115,7 +9534,23 @@ module.exports.mergePlugins = function (plugins) {
 
   return args.join(separator);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+var generators = require(&#x27;yeoman-generator&#x27;);
+var _ = require(&#x27;lodash&#x27;);
+var mout = require(&#x27;mout&#x27;);
+var cordova = require(&#x27;cordova&#x27;);
+var chalk = require(&#x27;chalk&#x27;);
+var ionicUtils = require(&#x27;../utils&#x27;);
+
+var appPath = path.<span class="apidocCodeKeywordSpan">join</span>(process.cwd(), &#x27;app&#x27;);
+
+module.exports = generators.Base.extend({
+  constructor: function () {
+generators.Base.apply(this, arguments);
+console.log(ionicUtils.greeting);
+
+this.argument(&#x27;appName&#x27;, { type: String, required: false });
+...</pre></li>
     </ul>
 
 
@@ -9163,7 +9598,24 @@ module.exports.mergePlugins = function (plugins) {
   }
   return slice(array, nativeMax(0, length - n));
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+// Register tasks for all Cordova commands
+_.functions(cordovaCli).forEach(function (name) {
+  grunt.registerTask(name, function () {
+    this.args.unshift(name.replace(&#x27;cordova:&#x27;, &#x27;&#x27;));
+    // Handle URL&#x27;s being split up by Grunt because of `:` characters
+    if (_.contains(this.args, &#x27;http&#x27;) || _.contains(this.args, &#x27;https&#x27;)) {
+      this.args = this.args.slice(0, -2).concat(_.<span class="apidocCodeKeywordSpan">last</span>(this.args, 2).join(&#x27;:&#x27
+;));
+    }
+    var done = this.async();
+    var exec = process.platform === &#x27;win32&#x27; ? &#x27;cordova.cmd&#x27; : &#x27;cordova&#x27;;
+    var cmd = path.resolve(&#x27;./node_modules/cordova/bin&#x27;, exec);
+    var flags = process.argv.splice(3);
+    var child = spawn(cmd, this.args.concat(flags));
+    child.stdout.on(&#x27;data&#x27;, function (data) {
+...</pre></li>
     </ul>
 
 
@@ -9999,7 +10451,22 @@ module.exports.mergePlugins = function (plugins) {
   }
   return result;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    }
+  }
+
+  this.prompt([{
+    type: &#x27;list&#x27;,
+    name: &#x27;starter&#x27;,
+    message: &#x27;Which starter template would you like to use?&#x27;,
+    choices: _.<span class="apidocCodeKeywordSpan">pluck</span>(ionicUtils.starters.templates, &#x27;name&#x27;),
+    default: defaultIndex
+  }], function (props) {
+    this.starter = this.options.selected.starter = _.find(ionicUtils.starters.templates, { name: props.starter });
+    done();
+  }.bind(this));
+}
+...</pre></li>
     </ul>
 
 
@@ -10284,7 +10751,19 @@ module.exports.mergePlugins = function (plugins) {
   }
   return result;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+ */
+var fs = require(&#x27;fs&#x27;);
+var _ = require(&#x27;lodash&#x27;);
+var packageJSON = require(&#x27;../../package.json&#x27;);
+
+packageJSON.cordovaPlugins = packageJSON.cordovaPlugins || [];
+_.each(process.env.CORDOVA_PLUGINS.split(&#x27;,&#x27;), function (plugin) {
+  _.<span class="apidocCodeKeywordSpan">remove</span>(packageJSON.cordovaPlugins, function (p) { return p === plugin; });
+});
+
+fs.writeFile(&#x27;package.json&#x27;, JSON.stringify(packageJSON, null, 2));
+...</pre></li>
     </ul>
 
 
@@ -10784,7 +11263,23 @@ module.exports.mergePlugins = function (plugins) {
   arr.splice(~~i, ~~howmany, substr);
   return arr.join(&#x27;&#x27;);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+// Handle URL&#x27;s being split up by Grunt because of `:` characters
+if (_.contains(this.args, &#x27;http&#x27;) || _.contains(this.args, &#x27;https&#x27;)) {
+  this.args = this.args.slice(0, -2).concat(_.last(this.args, 2).join(&#x27;:&#x27;));
+}
+var done = this.async();
+var exec = process.platform === &#x27;win32&#x27; ? &#x27;cordova.cmd&#x27; : &#x27;cordova&#x27;;
+var cmd = path.resolve(&#x27;./node_modules/cordova/bin&#x27;, exec);
+var flags = process.argv.<span class="apidocCodeKeywordSpan">splice</span>(3);
+var child = spawn(cmd, this.args.concat(flags));
+child.stdout.on(&#x27;data&#x27;, function (data) {
+  grunt.log.writeln(data);
+});
+child.stderr.on(&#x27;data&#x27;, function (data) {
+  grunt.log.error(data);
+});
+...</pre></li>
     </ul>
 
 
@@ -11160,7 +11655,22 @@ module.exports.mergePlugins = function (plugins) {
   result.source = source;
   return result;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    // Copies the contents of the generator example app
+    // directory into your users new application path
+    this.sourceRoot(path.join(__dirname, &#x27;../templates/&#x27;));
+    this.directory(&#x27;common/root&#x27;, &#x27;.&#x27;, true);
+  },
+
+  packageFiles: function packageFiles() {
+    this.<span class="apidocCodeKeywordSpan">template</span>(&#x27;common/_bower.json&#x27;, &#x27;bower.json&#x27;);
+    this.template(&#x27;common/_bowerrc&#x27;, &#x27;.bowerrc&#x27;);
+    this.template(&#x27;common/_package.json&#x27;, &#x27;package.json&#x27;);
+    this.copy(&#x27;common/_Gruntfile.js&#x27;, &#x27;Gruntfile.js&#x27;);
+    this.template(&#x27;common/_gitignore&#x27;, &#x27;.gitignore&#x27;);
+  }
+},
+...</pre></li>
     </ul>
 
 
@@ -11393,7 +11903,22 @@ module.exports.mergePlugins = function (plugins) {
   characters = defaultToWhiteSpace(characters);
   return String(str).replace(new RegExp(&#x27;^&#x27; + characters + &#x27;+|&#x27; + characters + &#x27;+$&#x27;, &#x27;g&#x27;), &#x27;&#x27;);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+        },
+
+        // Converts an elementtree object to an xml string.  Since this is used for plist values, we don&#x27;t care about attributes
+        eltreeToXmlString: function (data) {
+var tag = data.tag;
+var el = &#x27;&#x3c;&#x27; + tag + &#x27;&#x3e;&#x27;;
+
+if(data.text &#x26;&#x26; data.text.<span class="apidocCodeKeywordSpan">trim</span>()) {
+    el += data.text.trim();
+} else {
+    _.each(data.getchildren(), function (child) {
+        el += platformConfig.eltreeToXmlString(child);
+    });
+}
+...</pre></li>
     </ul>
 
 
@@ -11969,7 +12494,23 @@ module.exports.mergePlugins = function (plugins) {
   }
   return result;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  name: &#x27;compass&#x27;,
+  message: &#x27;Would you like to use Sass with Compass (requires Ruby)?&#x27;,
+  default: (typeof(this.options.compass) !== &#x27;undefined&#x27;) ? this.options.compass : false
+}], function (props) {
+  this.compass = this.options.selected.compass = props.compass;
+
+  done();
+}.<span class="apidocCodeKeywordSpan">bind</span>(this));
+    },
+
+    askForPlugins: function askForPlugins() {
+var done = this.async();
+
+if (this.options.plugins) {
+  ionicUtils.mergePlugins(this.options.plugins);
+...</pre></li>
     </ul>
 
 
@@ -12462,7 +13003,22 @@ module.exports.mergePlugins = function (plugins) {
   }
   return result;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+.factory(&#x27;httpEnvInterceptor&#x27;, function (ENV) {
+
+  return {
+
+    &#x27;request&#x27;: function(config) {
+
+if (!_.<span class="apidocCodeKeywordSpan">contains</span>(config.url, &#x27;html&#x27;)) {
+
+  config.url = ENV.apiEndpoint + config.url;
+
+}
+
+return config;
+...</pre></li>
     </ul>
 
 
@@ -12546,7 +13102,24 @@ module.exports.mergePlugins = function (plugins) {
   }
   return result;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    this.template(&#x27;common/_gitignore&#x27;, &#x27;.gitignore&#x27;);
+  }
+},
+
+writing: {
+  cordovaInit: function cordovaInit() {
+    var done = this.async();
+    cordova.<span class="apidocCodeKeywordSpan">create</span>(&#x27;.&#x27;, this.appId, this.appName, function (error) {
+      if (error) {
+        console.log(chalk.yellow(error.message + &#x27;: Skipping `cordova create`&#x27;));
+      } else {
+        console.log(chalk.yellow(&#x27;Created a new Cordova project with name &#x22;&#x27; + this.appName + &#x27;&#x22; and id
+ &#x22;&#x27; + this.appId + &#x27;&#x22;&#x27;));
+      }
+      done();
+    }.bind(this));
+...</pre></li>
     </ul>
 
 
@@ -12854,7 +13427,23 @@ module.exports.mergePlugins = function (plugins) {
   }
   return result;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+    appJs: function appJs() {
+
+var scriptPrefix = &#x27;js&#x27; + path.sep;
+
+var scripts = [scriptPrefix + &#x27;configuration.js&#x27;];
+
+this.fs.store.<span class="apidocCodeKeywordSpan">each</span>(function (file, index) {
+  if (file.path.indexOf(&#x27;.js&#x27;) !== -1)
+  {
+    var relPath = path.relative(appPath, file.path);
+    if (relPath.indexOf(scriptPrefix) === 0) {
+      scripts.push(relPath);
+    }
+  }
+...</pre></li>
     </ul>
 
 
@@ -13079,21 +13668,21 @@ module.exports.mergePlugins = function (plugins) {
   return result;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-function mergeCollections(arr1, arr2, prop) {
-	_.forEach(arr2, function (item2) {
-		var item1 = _.find(arr1, function (lookAt1) {
-			return lookAt1[prop] === item2[prop];
-		});
+var mout = require(&#x27;mout&#x27;);
+var cordova = require(&#x27;cordova&#x27;);
+var chalk = require(&#x27;chalk&#x27;);
+var ionicUtils = require(&#x27;../utils&#x27;);
 
-		if (item1) {
-			_.<span class="apidocCodeKeywordSpan">extend</span>(item1, item2);
-		} else {
-			arr1.push(item2);
-		}
-	});
-}
+var appPath = path.join(process.cwd(), &#x27;app&#x27;);
 
-module.exports.mergePlugins = function (plugins) {
+module.exports = generators.Base.<span class="apidocCodeKeywordSpan">extend</span>({
+  constructor: function () {
+generators.Base.apply(this, arguments);
+console.log(ionicUtils.greeting);
+
+this.argument(&#x27;appName&#x27;, { type: String, required: false });
+this.option(&#x27;appName&#x27;, { type: String, required: false });
+this.option(&#x27;appId&#x27;, { type: String, required: false });
 ...</pre></li>
     </ul>
 
@@ -13122,7 +13711,23 @@ module.exports.mergePlugins = function (plugins) {
   }
   return result;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+});
+orchestrator.start(&#x27;copyFile&#x27;, function (err) {
+  callback(err);
+});
+}
+
+// Main
+var platforms = _.<span class="apidocCodeKeywordSpan">filter</span>(fs.readdirSync(&#x27;platforms&#x27;), function (file) {
+return fs.statSync(path.resolve(&#x27;platforms&#x27;, file)).isDirectory();
+});
+_.each(platforms, function (platform) {
+var base = path.resolve(&#x27;platforms&#x27;, platform, BASES[platform]);
+glob(base + &#x27;/**/*.png&#x27;, function (err, files) {
+  _.each(files, function (cordovaFile) {
+    var orchestrator = new Orchestrator();
+...</pre></li>
     </ul>
 
 
@@ -13151,21 +13756,22 @@ module.exports.mergePlugins = function (plugins) {
   return result;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-  greeting: require(&#x27;./greeting&#x27;),
-  plugins: require(&#x27;./plugins&#x27;),
-  starters: require(&#x27;./starters&#x27;)
-};
+    this.prompt([{
+      type: &#x27;list&#x27;,
+      name: &#x27;starter&#x27;,
+      message: &#x27;Which starter template would you like to use?&#x27;,
+      choices: _.pluck(ionicUtils.starters.templates, &#x27;name&#x27;),
+      default: defaultIndex
+    }], function (props) {
+      this.starter = this.options.selected.starter = _.<span class="apidocCodeKeywordSpan">find</span>(ionicUtils.starters.templates
+, { name: props.starter });
+      done();
+    }.bind(this));
+  }
 
-function mergeCollections(arr1, arr2, prop) {
-	_.forEach(arr2, function (item2) {
-		var item1 = _.<span class="apidocCodeKeywordSpan">find</span>(arr1, function (lookAt1) {
-			return lookAt1[prop] === item2[prop];
-		});
+},
 
-		if (item1) {
-			_.extend(item1, item2);
-		} else {
-			arr1.push(item2);
+configuring: {
 ...</pre></li>
     </ul>
 
@@ -13194,7 +13800,24 @@ function mergeCollections(arr1, arr2, prop) {
   }
   return result;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+      if (this.options.templates) {
+ionicUtils.mergeStarterTemplates(this.options.templates);
+      }
+
+      var defaultIndex = 0;
+      if (this.options.starter) {
+defaultIndex = _.<span class="apidocCodeKeywordSpan">findIndex</span>(ionicUtils.starters.templates, { name: this.options.starter
+ });
+
+if (defaultIndex === -1) {
+  defaultIndex = 0;
+  this.log(chalk.bgYellow(chalk.black(&#x27;WARN&#x27;)) +
+    chalk.magenta(&#x27; Unable to locate the requested default template: &#x27;) +
+    this.options.starter);
+}
+...</pre></li>
     </ul>
 
 
@@ -13382,7 +14005,23 @@ function mergeCollections(arr1, arr2, prop) {
   }
   return result;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  // over to &#x3c;%%= yeoman.dist %&#x3e;/. Last step is running cordova prepare so we can refresh the ripple
+  // browser tab to see the changes. Technically ripple runs `cordova prepare` on browser
+  // refreshes, but at this time you would need to re-run the emulator to see changes.
+  grunt.registerTask(&#x27;ripple&#x27;, [&#x27;wiredep&#x27;, &#x27;newer:copy:app&#x27;, &#x27;ripple-emulator&#x27;]);
+  grunt.registerTask(&#x27;ripple-emulator&#x27;, function () {
+grunt.config.set(&#x27;watch&#x27;, {
+  all: {
+    files: _.<span class="apidocCodeKeywordSpan">flatten</span>(_.pluck(grunt.config.get(&#x27;watch&#x27;), &#x27;files&#x27;)),
+    tasks: [&#x27;newer:copy:app&#x27;, &#x27;prepare&#x27;]
+  }
+});
+
+var cmd = path.resolve(&#x27;./node_modules/ripple-emulator/bin&#x27;, &#x27;ripple&#x27;);
+var child = spawn(cmd, [&#x27;emulate&#x27;]);
+child.stdout.on(&#x27;data&#x27;, function (data) {
+...</pre></li>
     </ul>
 
 
@@ -13467,21 +14106,21 @@ function mergeCollections(arr1, arr2, prop) {
   return result;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-module.exports = {
-  greeting: require(&#x27;./greeting&#x27;),
-  plugins: require(&#x27;./plugins&#x27;),
-  starters: require(&#x27;./starters&#x27;)
-};
 
-function mergeCollections(arr1, arr2, prop) {
-	_.<span class="apidocCodeKeywordSpan">forEach</span>(arr2, function (item2) {
-		var item1 = _.find(arr1, function (lookAt1) {
-			return lookAt1[prop] === item2[prop];
-		});
+  this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, &#x27;../package.json&#x27;)));
+},
 
-		if (item1) {
-			_.extend(item1, item2);
-		} else {
+setupEnv: function setupEnv() {
+    // Removes thumbnail cache files
+    var invisibleFiles = [&#x27;Thumbs.db&#x27;, &#x27;.DS_Store&#x27;];
+    invisibleFiles.<span class="apidocCodeKeywordSpan">forEach</span>(function(filename) {
+        var file = path.join(process.cwd(), filename)
+        if(fs.existsSync(file) ) {
+            fs.unlinkSync(file);
+        }
+   });
+  // Copies the contents of the generator example app
+  // directory into your users new application path
 ...</pre></li>
     </ul>
 
@@ -13650,7 +14289,23 @@ function mergeCollections(arr1, arr2, prop) {
   }
   return result;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+      }]
+    }
+  }
+
+});
+
+// Register tasks for all Cordova commands
+_.<span class="apidocCodeKeywordSpan">functions</span>(cordovaCli).forEach(function (name) {
+  grunt.registerTask(name, function () {
+    this.args.unshift(name.replace(&#x27;cordova:&#x27;, &#x27;&#x27;));
+    // Handle URL&#x27;s being split up by Grunt because of `:` characters
+    if (_.contains(this.args, &#x27;http&#x27;) || _.contains(this.args, &#x27;https&#x27;)) {
+      this.args = this.args.slice(0, -2).concat(_.last(this.args, 2).join(&#x27;:&#x27;));
+    }
+    var done = this.async();
+...</pre></li>
     </ul>
 
 
@@ -13838,7 +14493,24 @@ function mergeCollections(arr1, arr2, prop) {
   }
   return result;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+        /* Retrieves all configured xml for a specific platform/target/parent element nested inside a platforms config-file
+           element within the config.xml.  The config-file elements are then indexed by target|parent so if there are
+           any config-file elements per platform that have the same target and parent, the last config-file element is used.
+         */
+        getConfigFilesByTargetAndParent: function (platform) {
+var configFileData = this.getConfigXml().findall(&#x27;platform[@name=\&#x27;&#x27; + platform + &#x27;\&#x27;]/config-file&#x27
+;);
+
+return  _.<span class="apidocCodeKeywordSpan">indexBy</span>(configFileData, function(item) {
+    var parent = item.attrib.parent;
+    //if parent attribute is undefined /* or */, set parent to top level elementree selector
+    if(!parent || parent === &#x27;/*&#x27; || parent === &#x27;*/&#x27;) {
+        parent = &#x27;./&#x27;;
+    }
+    return item.attrib.target + &#x27;|&#x27; + parent;
+});
+...</pre></li>
     </ul>
 
 
@@ -13866,7 +14538,23 @@ function mergeCollections(arr1, arr2, prop) {
   }
   return result;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    appJs: function appJs() {
+
+var scriptPrefix = &#x27;js&#x27; + path.sep;
+
+var scripts = [scriptPrefix + &#x27;configuration.js&#x27;];
+
+this.fs.store.each(function (file, index) {
+  if (file.path.<span class="apidocCodeKeywordSpan">indexOf</span>(&#x27;.js&#x27;) !== -1)
+  {
+    var relPath = path.relative(appPath, file.path);
+    if (relPath.indexOf(scriptPrefix) === 0) {
+      scripts.push(relPath);
+    }
+  }
+});
+...</pre></li>
     </ul>
 
 
@@ -14582,7 +15270,23 @@ module.exports.mergePlugins = function (plugins) {
   }
   return result;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+var generators = require(&#x27;yeoman-generator&#x27;);
+var _ = require(&#x27;lodash&#x27;);
+var mout = require(&#x27;mout&#x27;);
+var cordova = require(&#x27;cordova&#x27;);
+var chalk = require(&#x27;chalk&#x27;);
+var ionicUtils = require(&#x27;../utils&#x27;);
+
+var appPath = path.<span class="apidocCodeKeywordSpan">join</span>(process.cwd(), &#x27;app&#x27;);
+
+module.exports = generators.Base.extend({
+  constructor: function () {
+generators.Base.apply(this, arguments);
+console.log(ionicUtils.greeting);
+
+this.argument(&#x27;appName&#x27;, { type: String, required: false });
+...</pre></li>
     </ul>
 
 
@@ -14630,7 +15334,24 @@ module.exports.mergePlugins = function (plugins) {
     ? result
     : new lodashWrapper(result, chainAll);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+// Register tasks for all Cordova commands
+_.functions(cordovaCli).forEach(function (name) {
+  grunt.registerTask(name, function () {
+    this.args.unshift(name.replace(&#x27;cordova:&#x27;, &#x27;&#x27;));
+    // Handle URL&#x27;s being split up by Grunt because of `:` characters
+    if (_.contains(this.args, &#x27;http&#x27;) || _.contains(this.args, &#x27;https&#x27;)) {
+      this.args = this.args.slice(0, -2).concat(_.<span class="apidocCodeKeywordSpan">last</span>(this.args, 2).join(&#x27;:&#x27
+;));
+    }
+    var done = this.async();
+    var exec = process.platform === &#x27;win32&#x27; ? &#x27;cordova.cmd&#x27; : &#x27;cordova&#x27;;
+    var cmd = path.resolve(&#x27;./node_modules/cordova/bin&#x27;, exec);
+    var flags = process.argv.splice(3);
+    var child = spawn(cmd, this.args.concat(flags));
+    child.stdout.on(&#x27;data&#x27;, function (data) {
+...</pre></li>
     </ul>
 
 
@@ -15514,7 +16235,22 @@ module.exports.mergePlugins = function (plugins) {
   }
   return result;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    }
+  }
+
+  this.prompt([{
+    type: &#x27;list&#x27;,
+    name: &#x27;starter&#x27;,
+    message: &#x27;Which starter template would you like to use?&#x27;,
+    choices: _.<span class="apidocCodeKeywordSpan">pluck</span>(ionicUtils.starters.templates, &#x27;name&#x27;),
+    default: defaultIndex
+  }], function (props) {
+    this.starter = this.options.selected.starter = _.find(ionicUtils.starters.templates, { name: props.starter });
+    done();
+  }.bind(this));
+}
+...</pre></li>
     </ul>
 
 
@@ -15534,7 +16270,23 @@ module.exports.mergePlugins = function (plugins) {
     ? new lodashWrapper(result, chainAll)
     : result;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+};
+var RESOURCE_DIR = &#x27;resources&#x27;;
+
+// Helper function for file copying that ensures directory existence.
+function copyFile (src, dest, ncpOpts, callback) {
+var orchestrator = new Orchestrator();
+var parts = dest.split(path.sep);
+var fileName = parts.<span class="apidocCodeKeywordSpan">pop</span>();
+var destDir = parts.join(path.sep);
+var destFile = path.resolve(destDir, fileName);
+orchestrator.add(&#x27;ensureDir&#x27;, function (done) {
+  mkdirp(destDir, function (err) {
+    done(err);
+  });
+});
+...</pre></li>
     </ul>
 
 
@@ -15635,21 +16387,20 @@ module.exports.mergePlugins = function (plugins) {
   return this;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-		var item1 = _.find(arr1, function (lookAt1) {
-			return lookAt1[prop] === item2[prop];
-		});
+  var scripts = [scriptPrefix + &#x27;configuration.js&#x27;];
 
-		if (item1) {
-			_.extend(item1, item2);
-		} else {
-			arr1.<span class="apidocCodeKeywordSpan">push</span>(item2);
-		}
-	});
-}
+  this.fs.store.each(function (file, index) {
+    if (file.path.indexOf(&#x27;.js&#x27;) !== -1)
+    {
+      var relPath = path.relative(appPath, file.path);
+      if (relPath.indexOf(scriptPrefix) === 0) {
+        scripts.<span class="apidocCodeKeywordSpan">push</span>(relPath);
+      }
+    }
+  });
 
-module.exports.mergePlugins = function (plugins) {
-	if (_.isObject(plugins)) {
-		plugins = _.map(plugins, function (value, key) {
+  //this.indexFile = this.appendScripts(this.indexFile, &#x27;scripts/scripts.js&#x27;, scripts);
+},
 ...</pre></li>
     </ul>
 
@@ -15874,7 +16625,19 @@ module.exports.mergePlugins = function (plugins) {
   }
   return result;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+ */
+var fs = require(&#x27;fs&#x27;);
+var _ = require(&#x27;lodash&#x27;);
+var packageJSON = require(&#x27;../../package.json&#x27;);
+
+packageJSON.cordovaPlugins = packageJSON.cordovaPlugins || [];
+_.each(process.env.CORDOVA_PLUGINS.split(&#x27;,&#x27;), function (plugin) {
+  _.<span class="apidocCodeKeywordSpan">remove</span>(packageJSON.cordovaPlugins, function (p) { return p === plugin; });
+});
+
+fs.writeFile(&#x27;package.json&#x27;, JSON.stringify(packageJSON, null, 2));
+...</pre></li>
     </ul>
 
 
@@ -16253,7 +17016,24 @@ module.exports.mergePlugins = function (plugins) {
     <li>description and source-code<pre class="apidocCodePre">slice = function () {
   return new lodashWrapper(func.apply(this.__wrapped__, arguments), this.__chain__);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+// Register tasks for all Cordova commands
+_.functions(cordovaCli).forEach(function (name) {
+  grunt.registerTask(name, function () {
+    this.args.unshift(name.replace(&#x27;cordova:&#x27;, &#x27;&#x27;));
+    // Handle URL&#x27;s being split up by Grunt because of `:` characters
+    if (_.contains(this.args, &#x27;http&#x27;) || _.contains(this.args, &#x27;https&#x27;)) {
+      this.args = this.args.<span class="apidocCodeKeywordSpan">slice</span>(0, -2).concat(_.last(this.args, 2).join(&#x27;:&#x27
+;));
+    }
+    var done = this.async();
+    var exec = process.platform === &#x27;win32&#x27; ? &#x27;cordova.cmd&#x27; : &#x27;cordova&#x27;;
+    var cmd = path.resolve(&#x27;./node_modules/cordova/bin&#x27;, exec);
+    var flags = process.argv.splice(3);
+    var child = spawn(cmd, this.args.concat(flags));
+    child.stdout.on(&#x27;data&#x27;, function (data) {
+...</pre></li>
     </ul>
 
 
@@ -16409,7 +17189,23 @@ module.exports.mergePlugins = function (plugins) {
   }
   return result;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+// Handle URL&#x27;s being split up by Grunt because of `:` characters
+if (_.contains(this.args, &#x27;http&#x27;) || _.contains(this.args, &#x27;https&#x27;)) {
+  this.args = this.args.slice(0, -2).concat(_.last(this.args, 2).join(&#x27;:&#x27;));
+}
+var done = this.async();
+var exec = process.platform === &#x27;win32&#x27; ? &#x27;cordova.cmd&#x27; : &#x27;cordova&#x27;;
+var cmd = path.resolve(&#x27;./node_modules/cordova/bin&#x27;, exec);
+var flags = process.argv.<span class="apidocCodeKeywordSpan">splice</span>(3);
+var child = spawn(cmd, this.args.concat(flags));
+child.stdout.on(&#x27;data&#x27;, function (data) {
+  grunt.log.writeln(data);
+});
+child.stderr.on(&#x27;data&#x27;, function (data) {
+  grunt.log.error(data);
+});
+...</pre></li>
     </ul>
 
 
@@ -16841,7 +17637,22 @@ module.exports.mergePlugins = function (plugins) {
   }
   return result;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    // Copies the contents of the generator example app
+    // directory into your users new application path
+    this.sourceRoot(path.join(__dirname, &#x27;../templates/&#x27;));
+    this.directory(&#x27;common/root&#x27;, &#x27;.&#x27;, true);
+  },
+
+  packageFiles: function packageFiles() {
+    this.<span class="apidocCodeKeywordSpan">template</span>(&#x27;common/_bower.json&#x27;, &#x27;bower.json&#x27;);
+    this.template(&#x27;common/_bowerrc&#x27;, &#x27;.bowerrc&#x27;);
+    this.template(&#x27;common/_package.json&#x27;, &#x27;package.json&#x27;);
+    this.copy(&#x27;common/_Gruntfile.js&#x27;, &#x27;Gruntfile.js&#x27;);
+    this.template(&#x27;common/_gitignore&#x27;, &#x27;.gitignore&#x27;);
+  }
+},
+...</pre></li>
     </ul>
 
 
@@ -17184,7 +17995,22 @@ module.exports.mergePlugins = function (plugins) {
   }
   return result;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+        },
+
+        // Converts an elementtree object to an xml string.  Since this is used for plist values, we don&#x27;t care about attributes
+        eltreeToXmlString: function (data) {
+var tag = data.tag;
+var el = &#x27;&#x3c;&#x27; + tag + &#x27;&#x3e;&#x27;;
+
+if(data.text &#x26;&#x26; data.text.<span class="apidocCodeKeywordSpan">trim</span>()) {
+    el += data.text.trim();
+} else {
+    _.each(data.getchildren(), function (child) {
+        el += platformConfig.eltreeToXmlString(child);
+    });
+}
+...</pre></li>
     </ul>
 
 
@@ -17452,7 +18278,23 @@ module.exports.mergePlugins = function (plugins) {
   func.apply(this.__wrapped__, arguments);
   return this;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  }
+
+});
+
+// Register tasks for all Cordova commands
+_.functions(cordovaCli).forEach(function (name) {
+  grunt.registerTask(name, function () {
+    this.args.<span class="apidocCodeKeywordSpan">unshift</span>(name.replace(&#x27;cordova:&#x27;, &#x27;&#x27;));
+    // Handle URL&#x27;s being split up by Grunt because of `:` characters
+    if (_.contains(this.args, &#x27;http&#x27;) || _.contains(this.args, &#x27;https&#x27;)) {
+      this.args = this.args.slice(0, -2).concat(_.last(this.args, 2).join(&#x27;:&#x27;));
+    }
+    var done = this.async();
+    var exec = process.platform === &#x27;win32&#x27; ? &#x27;cordova.cmd&#x27; : &#x27;cordova&#x27;;
+    var cmd = path.resolve(&#x27;./node_modules/cordova/bin&#x27;, exec);
+...</pre></li>
     </ul>
 
 
@@ -17792,7 +18634,23 @@ module.exports.mergePlugins = function (plugins) {
 
 	mergeCollections(module.exports.plugins.prompts[0].choices, plugins, &#x27;value&#x27;);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+}.bind(this));
+    },
+
+    askForPlugins: function askForPlugins() {
+var done = this.async();
+
+if (this.options.plugins) {
+  ionicUtils.<span class="apidocCodeKeywordSpan">mergePlugins</span>(this.options.plugins);
+}
+
+this.prompt(ionicUtils.plugins.prompts, function (props) {
+  this.plugins = this.options.selected.plugins = props.plugins;
+
+  done();
+}.bind(this));
+...</pre></li>
     </ul>
 
 
@@ -17807,7 +18665,23 @@ module.exports.mergePlugins = function (plugins) {
     <li>description and source-code<pre class="apidocCodePre">mergeStarterTemplates = function (templates) {
 	mergeCollections(module.exports.starters.templates, templates, &#x27;name&#x27;);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+      }.bind(this));
+    },
+
+    askForStarter: function askForStarter() {
+      var done = this.async();
+
+      if (this.options.templates) {
+ionicUtils.<span class="apidocCodeKeywordSpan">mergeStarterTemplates</span>(this.options.templates);
+      }
+
+      var defaultIndex = 0;
+      if (this.options.starter) {
+defaultIndex = _.findIndex(ionicUtils.starters.templates, { name: this.options.starter });
+
+if (defaultIndex === -1) {
+...</pre></li>
     </ul>
 
 
