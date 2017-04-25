@@ -1,6 +1,6 @@
 # npmdoc-generator-ionic
 
-#### api documentation for  [generator-ionic (v0.8.0)](https://github.com/diegonetto/generator-ionic)  [![npm package](https://img.shields.io/npm/v/npmdoc-generator-ionic.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-generator-ionic) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-generator-ionic.svg)](https://travis-ci.org/npmdoc/node-npmdoc-generator-ionic)
+#### basic api documentation for  [generator-ionic (v0.8.0)](https://github.com/diegonetto/generator-ionic)  [![npm package](https://img.shields.io/npm/v/npmdoc-generator-ionic.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-generator-ionic) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-generator-ionic.svg)](https://travis-ci.org/npmdoc/node-npmdoc-generator-ionic)
 
 #### A generator for the Ionic Framework
 
